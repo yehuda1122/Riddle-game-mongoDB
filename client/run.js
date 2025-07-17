@@ -2,7 +2,7 @@ import {plye,addRidlle,updateRiddle,deletedata} from "./app.js";
 import readline from "readline-sync"
 
 function run() {
-    let start = readline.question("enter your coise per number: \n 1.resolve riddle. \n 2.add new ridlle. \n 3.update som reddle. \n 4.delete riddle: ")
+    let start = readline.question("enter your coise per number: \n 1.resolve riddle. \n 2.add new ridlle. \n 3.update som reddle. \n 4.delete riddle:\n ")
     console.log();
     
 switch (start) {

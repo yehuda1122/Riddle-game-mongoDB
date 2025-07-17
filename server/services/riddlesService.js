@@ -1,11 +1,12 @@
-import express from "express"
-import fs from "fs/promises";
+import { ObjectId } from "mongodb";
+import  {connect} from "../db.js";
 
 
-async function readRiddlesFromFile(path) {
-    const data = await fs.readFile("./data/allRiddle.txt", { encoding: "utf-8" })
-    return JSON.parse(data)
-
+async function getRiddlesFromMongoDB() {
+        const db = await connect();
+        const data = await db.collection("riddles").find().toArray();
+        console.log(data);
+        return data
 }
 
 async function writeRiddleToFile(path, newData) {
@@ -46,7 +47,7 @@ async function deleteRiddleFromFile(path, id) {
 }
 
 export {
-    readRiddlesFromFile,
+    getRiddlesFromMongoDB,
     writeRiddleToFile,
     updateRiddleInFile,
     deleteRiddleFromFile

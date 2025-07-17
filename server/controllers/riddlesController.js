@@ -1,16 +1,18 @@
 import express from "express";
 
 import {
-    readRiddlesFromFile,
+    getRiddlesFromMongoDB,
     writeRiddleToFile,
     updateRiddleInFile,
     deleteRiddleFromFile
 } from "../services/riddlesService.js";
 
-const path = "./data/allRiddle.txt"
+
+
 export async function getAllRiddles(req,res) {
     try {
-        const respons = await readRiddlesFromFile(path);
+        const respons = await getRiddlesFromMongoDB();
+        console.log('respons',respons);
         res.status(200).json(respons)
     }
     catch (err) {

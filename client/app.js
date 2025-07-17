@@ -10,7 +10,7 @@ import riddle from "./riddles/Riddle.js";
 import readline from "readline-sync"
 
 export async function plye() {
-    const response = await fetch("http://localhost:3003/riddle");
+    const response = await fetch("http://localhost:3000/riddle");
     const arrRiddle = await response.json();
     console.log(arrRiddle);
     

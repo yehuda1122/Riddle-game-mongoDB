@@ -2,29 +2,28 @@ import express from "express";
 
 import {
     getRiddlesFromMongoDB,
-    writeRiddleToFile,
-    updateRiddleInFile,
-    deleteRiddleFromFile
+    writeRiddleToMongoDB,
+    updateRiddleImongoDB,
+    deleteRiddleFromMongoDB
 } from "../services/riddlesService.js";
 
 
 
-export async function getAllRiddles(req,res) {
+export async function getAllRiddles(req, res) {
     try {
         const respons = await getRiddlesFromMongoDB();
-        console.log('respons',respons);
         res.status(200).json(respons)
     }
     catch (err) {
         console.error("erorr ", err.message);
         res.status(500).json({ failed: "not read" })
     }
-
 }
+
 export async function createRiddle(req, res) {
     const newRiddle = req.body
     try {
-        const update = await writeRiddleToFile(path, newRiddle);
+        const update = await writeRiddleToMongoDB(newRiddle);
         res.status(201).json(update)
     }
     catch (err) {
@@ -36,22 +35,23 @@ export async function createRiddle(req, res) {
 export async function updateRiddle(req, res) {
     const newData = req.body
     try {
-        const fileUpdate = await updateRiddleInFile(path, newData);
+        const fileUpdate = await updateRiddleImongoDB(newData);
         res.status(201).json(newData)
-
     }
     catch (err) {
         console.error("erorr ", err.message);
         res.status(400).json({ failed: "not updatead" })
     }
 }
+
 export async function deleteRiddle(req, res) {
-    const id = Number(req.params.id)
+    const id = req.params.id;
     if (!id) {
         return res.status(404).json({ error: "id not find" });
     }
     try {
-        const deleted = await deleteRiddleFromFile(path, id);
+        const deleted = await deleteRiddleFromMongoDB(id);
+        console.log(deleted);
         if (!deleted) {
             return res.status(404).json({ message: "id not found" });
         }

@@ -12,8 +12,7 @@ import readline from "readline-sync"
 export async function plye() {
     const response = await fetch("http://localhost:3000/riddle");
     const arrRiddle = await response.json();
-    console.log(arrRiddle);
-    
+
     const name1 = readline.question("enter your neme:")
     const person1 = new person(name1)
     for (let i = 0; i < arrRiddle.length; i++) {
@@ -36,26 +35,27 @@ export async function plye() {
 
 export async function addRidlle() {
     console.log("enter new riddle: ");
-    const id = Number(readline.question("enter id: "))
     const name = readline.question("enter lavel: ")
     const taskDescription = readline.question("enter riddle: ")
     const correctAnswer = readline.question("enter correct Answer: ")
 
     const newRidlle = {
-        id,
         name,
         taskDescription,
         correctAnswer
     }
     try {
-        const add = await fetch("http://localhost:3003/add", {
+        const add = await fetch("http://localhost:3000/add", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(newRidlle)
         })
         const data = await add.json();
-        console.log("The Riddle added successfully: ");
-        console.log(data);
+        if (!data.failed) {
+            console.log(data.message);
+        } else {
+            console.log("The Riddle not added ");
+        }
     }
     catch (err) {
         console.error(err.message)
@@ -63,8 +63,7 @@ export async function addRidlle() {
 }
 
 export async function updateRiddle() {
-
-    const response = await fetch("http://localhost:3003/riddle");
+    const response = await fetch("http://localhost:3000/riddle");
     const arrRiddle = await response.json();
     console.log(arrRiddle);
     const idriddle = readline.question("enter id: ")
@@ -79,7 +78,7 @@ export async function updateRiddle() {
     }
     const value = readline.question("enter your chenge:")
     try {
-        const update = await fetch("http://localhost:3003/update", {
+        const update = await fetch("http://localhost:3000/update", {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -89,8 +88,7 @@ export async function updateRiddle() {
             })
         })
         const updatedRiddle = await update.json();
-        console.log(updatedRiddle);
-        console.log("The change added successfully");
+        console.log(updatedRiddle.message);
     }
     catch (err) {
         console.error(err.message)
@@ -98,17 +96,17 @@ export async function updateRiddle() {
 }
 
 export async function deletedata() {
-    const response = await fetch("http://localhost:3003/riddle");
+    const response = await fetch("http://localhost:3000/riddle");
     const arrRiddle = await response.json();
     console.log(arrRiddle);
-    const ruddleId = readline.question("enter id: ")
+    const riddleId = readline.question("enter id: ")
     try {
-        const delte = await fetch(`http://localhost:3003/${ruddleId}`, {
+        const delete1 = await fetch(`http://localhost:3000/${riddleId}`, {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
         })
-        const data = await delte.json()
-        console.log("The riddle delete successfully");
+        const data = await delete1.json()
+        console.log(data.message);
     }
     catch (err) {
         console.error(err.message)

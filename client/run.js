@@ -1,4 +1,5 @@
-import {plye,addRidlle,updateRiddle,deletedata} from "./app.js";
+import {plye} from "./app.js";
+import {addRidlle,updateRiddle,deletedata} from "./services.js"
 import readline from "readline-sync"
 
 function run() {

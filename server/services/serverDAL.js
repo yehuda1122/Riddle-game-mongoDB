@@ -16,7 +16,7 @@ async function writeRiddleToMongoDB(newRiddel) {
 
 async function updateRiddleImongoDB(newData) {
     const db = await connect();
-    return await db.collection("riddles").updateOne({ _id: new ObjectId(newData.id) }, { $set: { [newData.field]: newData.value } })
+    return await db.collection("riddles").updateOne({ _id: new ObjectId(newData.id) }, { $set: { [newData.itemChenge]: newData.value } })
 }
 
 async function deleteRiddleFromMongoDB(id) {

@@ -8,14 +8,13 @@ export default class Riddle {
         this.correctAnswer = correctAnswer
     }
     ask() {
-        console.log(this.id)
-        console.log(this.name)
+        console.log("level:",this.name)
         console.log(this.taskDescription)
         let bool = false;
         while (!bool) {
             let answer = readline.question("input answer");
             if (answer === this.correctAnswer) {
-                console.log("correct")
+                console.log("correct answer")
                 bool = true
             } else {
                 console.log("worng answer try again")

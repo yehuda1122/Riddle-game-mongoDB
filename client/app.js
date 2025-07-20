@@ -1,26 +1,20 @@
-// import r1 from "./riddles/r1.js";
-// import r2 from "./riddles/r2.js";
-// import r3 from "./riddles/r3.js";
-// import r4 from "./riddles/r4.js";
-// import r5 from "./riddles/r5.js";
-
 
 import person from "./classes/personclass.js";
 import riddle from "./riddles/Riddle.js";
 import readline from "readline-sync"
+import {getRideele} from "./services.js"
 
-export async function plye() {
-    const response = await fetch("http://localhost:3000/riddle");
-    const arrRiddle = await response.json();
 
+export async function plye(){
+    const allRiddel = await getRideele()
     const name1 = readline.question("enter your neme:")
     const person1 = new person(name1)
-    for (let i = 0; i < arrRiddle.length; i++) {
+    for (let i = 0; i < allRiddel.length; i++) {
         let input = readline.question("Press Enter to get the next riddle or type 'end' to stop: ")
         if (input === "end") {
             break;
         }
-        const riddle1 = new riddle(arrRiddle[i])
+        const riddle1 = new riddle(allRiddel[i])
         person1.recordTime(() => riddle1.ask())
 
     }
@@ -33,10 +27,11 @@ export async function plye() {
 }
 
 
-export async function addRidlle() {
+
+export function insertRiddel() {
     console.log("enter new riddle: ");
     const name = readline.question("enter lavel: ")
-    const taskDescription = readline.question("enter riddle: ")
+    const taskDescription = readline.question(" riddle: ")
     const correctAnswer = readline.question("enter correct Answer: ")
 
     const newRidlle = {
@@ -44,29 +39,14 @@ export async function addRidlle() {
         taskDescription,
         correctAnswer
     }
-    try {
-        const add = await fetch("http://localhost:3000/add", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(newRidlle)
-        })
-        const data = await add.json();
-        if (!data.failed) {
-            console.log(data.message);
-        } else {
-            console.log("The Riddle not added ");
-        }
-    }
-    catch (err) {
-        console.error(err.message)
-    }
+    return newRidlle
 }
 
-export async function updateRiddle() {
-    const response = await fetch("http://localhost:3000/riddle");
-    const arrRiddle = await response.json();
+
+export async function updateSomRiddle() {
+    const arrRiddle = await getRideele()
     console.log(arrRiddle);
-    const idriddle = readline.question("enter id: ")
+    const id = readline.question("enter id: ")
     let itemChenge;
     const arr = ['name', 'taskDescription', 'correctAnswer'];
     while (true) {
@@ -77,38 +57,20 @@ export async function updateRiddle() {
         console.log('not found try egian');
     }
     const value = readline.question("enter your chenge:")
-    try {
-        const update = await fetch("http://localhost:3000/update", {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                id: idriddle,
-                field: itemChenge,
-                value: value
-            })
-        })
-        const updatedRiddle = await update.json();
-        console.log(updatedRiddle.message);
+
+    const newDate = {
+        id,
+        itemChenge,
+        value
     }
-    catch (err) {
-        console.error(err.message)
-    }
+    return newDate
 }
 
-export async function deletedata() {
-    const response = await fetch("http://localhost:3000/riddle");
-    const arrRiddle = await response.json();
+
+export async function deletedataById() {
+    const arrRiddle = await getRideele()
     console.log(arrRiddle);
     const riddleId = readline.question("enter id: ")
-    try {
-        const delete1 = await fetch(`http://localhost:3000/${riddleId}`, {
-            method: "DELETE",
-            headers: { "Content-Type": "application/json" },
-        })
-        const data = await delete1.json()
-        console.log(data.message);
-    }
-    catch (err) {
-        console.error(err.message)
-    }
+    return riddleId
 }
+

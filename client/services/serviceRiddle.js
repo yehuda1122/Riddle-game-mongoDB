@@ -1,4 +1,4 @@
-import { insertRiddel, updateSomRiddle, deletedataById } from "./app.js"
+import { insertRiddel, updateSomRiddle, deletedataById } from "../app.js"
 
 
 export async function getRideele() {
@@ -11,7 +11,7 @@ export async function getRideele() {
 export async function addRidlle() {
     const nawRiddle = insertRiddel()
     try {
-        const add = await fetch("http://localhost:3000/add", {
+        const add = await fetch("http://localhost:3000/riddle/add", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(nawRiddle)
@@ -32,7 +32,7 @@ export async function addRidlle() {
 export async function updateRiddle() {
     const newDate = await updateSomRiddle()
     try {
-        const update = await fetch("http://localhost:3000/update", {
+        const update = await fetch("http://localhost:3000/riddle/update", {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(newDate)
@@ -52,7 +52,7 @@ export async function updateRiddle() {
 export async function deletedata() {
     const riddelId = await deletedataById()
     try {
-        const delete1 = await fetch(`http://localhost:3000/${riddelId}`, {
+        const delete1 = await fetch(`http://localhost:3000/riddle/${riddelId}`, {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
         })

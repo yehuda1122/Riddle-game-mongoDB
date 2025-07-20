@@ -1,5 +1,5 @@
 import { ObjectId } from "mongodb";
-import { connect } from "../db.js";
+import { connect } from "../DataBase/dbRiddle.js";
 
 
 
@@ -21,8 +21,9 @@ async function updateRiddleImongoDB(newData) {
 
 async function deleteRiddleFromMongoDB(id) {
     const db = await connect();
-    return (await db.collection("riddles").deleteOne({_id: new ObjectId(id)}))
+    return await db.collection("riddles").deleteOne({_id: new ObjectId(id)})
 }
+
 export {
     getRiddlesFromMongoDB,
     writeRiddleToMongoDB,

@@ -2,7 +2,7 @@ import { config } from 'dotenv';
 import { MongoClient, Db } from 'mongodb';
 config();
 
-const client = new MongoClient(process.env.DB_USERS)
+const client = new MongoClient(process.env.DB_USERS_MONGODB)
 
 /**
  * @type {Db | null}

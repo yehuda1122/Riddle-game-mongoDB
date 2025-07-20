@@ -1,5 +1,5 @@
-import {plye} from "./app.js";
-import {addRidlle,updateRiddle,deletedata} from "./services.js"
+import {play} from "./app.js";
+import { addRidlle,updateRiddle,deletedata } from "./services/serviceRiddle.js";
 import readline from "readline-sync"
 
 function run() {
@@ -8,7 +8,7 @@ function run() {
     
 switch (start) {
     case "1":
-        plye()
+         play()
         break;
     case "2":
         addRidlle()

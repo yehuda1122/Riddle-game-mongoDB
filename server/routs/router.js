@@ -7,11 +7,17 @@ import {
   deleteRiddle
 } from "../controllers/riddlesController.js";
 
-const riddelRouter = express.Router();
+import{
+  addNewplayer
+} from "../controllers/playerController.js";
 
-riddelRouter.get("/riddle", getAllRiddles);
+export const riddelRouter = express.Router();
+export const plyeerRouter = express.Router()
+
+riddelRouter.get("/", getAllRiddles);
 riddelRouter.post("/add", createRiddle);
 riddelRouter.put("/update", updateRiddle);
 riddelRouter.delete("/:id", deleteRiddle);
 
-export default riddelRouter;
+plyeerRouter.post("/add",addNewplayer)
+

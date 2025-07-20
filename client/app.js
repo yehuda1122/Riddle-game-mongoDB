@@ -2,15 +2,16 @@
 import person from "./classes/personclass.js";
 import riddle from "./riddles/Riddle.js";
 import readline from "readline-sync"
-import {getRideele} from "./services.js"
+import {getRideele} from "./services/serviceRiddle.js"
+import { addPlayer } from "./services/servicePlyer.js";
 
-
-export async function plye(){
+export async function play(){
     const allRiddel = await getRideele()
     const name1 = readline.question("enter your neme:")
+    await addPlayer(name1)
     const person1 = new person(name1)
     for (let i = 0; i < allRiddel.length; i++) {
-        let input = readline.question("Press Enter to get the next riddle or type 'end' to stop: ")
+        let input = readline.question("Press Enter to get the next riddle or 'end' to stop: ")
         if (input === "end") {
             break;
         }

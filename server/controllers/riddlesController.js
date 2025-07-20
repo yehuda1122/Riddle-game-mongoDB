@@ -5,7 +5,7 @@ import {
     writeRiddleToMongoDB,
     updateRiddleImongoDB,
     deleteRiddleFromMongoDB
-} from "../services/serverDAL.js";
+} from "../services/riddleDAL.js";
 
 
 

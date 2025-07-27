@@ -1,8 +1,10 @@
 
 import express from "express"
 import {riddelRouter,plyeerRouter} from "./routs/router.js";
+import cookieParser from "cookie-parser";
 
 const app = express()
+app.use(cookieParser());
 app.use(express.json());
 app.use("/riddle",riddelRouter)
 app.use("/player",plyeerRouter)

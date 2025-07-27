@@ -1,15 +1,12 @@
 
-import person from "./classes/personclass.js";
-import riddle from "./riddles/Riddle.js";
+import person from "../classes/personclass.js";
+import riddle from "../riddles/Riddle.js";
 import readline from "readline-sync"
-import {getRideele} from "./services/serviceRiddle.js"
-import { addPlayer } from "./services/servicePlyer.js";
+import {getRideele} from "../services/serviceriddle.js"
 
 export async function play(){
     const allRiddel = await getRideele()
-    const name1 = readline.question("enter your neme:")
-    await addPlayer(name1)
-    const person1 = new person(name1)
+    const person1 = new person()
     for (let i = 0; i < allRiddel.length; i++) {
         let input = readline.question("Press Enter to get the next riddle or 'end' to stop: ")
         if (input === "end") {
@@ -34,7 +31,6 @@ export function insertRiddel() {
     const name = readline.question("enter lavel: ")
     const taskDescription = readline.question(" riddle: ")
     const correctAnswer = readline.question("enter correct Answer: ")
-
     const newRidlle = {
         name,
         taskDescription,

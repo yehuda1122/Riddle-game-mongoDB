@@ -1,7 +1,7 @@
 
 export default class Player {
-    constructor(name) {
-        this.name = name
+    constructor() {
+        this.name = ""
         this.times = []
     }
       recordTime(cb) {

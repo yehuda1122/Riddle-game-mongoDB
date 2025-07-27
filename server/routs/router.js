@@ -11,9 +11,9 @@ import{
   addNewplayer,
   login
 } from "../controllers/playerController.js";
-import { verifyToken,checkAdminRolr } from "../function/verify.js";
+import { verifyToken } from "../function/verify.js";
 
-
+import{timeFromDB} from "../controllers/playerController.js"
 
 export const riddelRouter = express.Router();
 export const plyeerRouter = express.Router()
@@ -25,4 +25,5 @@ riddelRouter.delete("/:id",verifyToken,deleteRiddle);
 
 plyeerRouter.post("/add",addNewplayer);
 plyeerRouter.post("/login",login);
+plyeerRouter.put("/updateTime",timeFromDB)
 

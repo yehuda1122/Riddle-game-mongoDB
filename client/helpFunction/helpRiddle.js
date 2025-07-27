@@ -3,6 +3,8 @@ import person from "../classes/personclass.js";
 import riddle from "../riddles/Riddle.js";
 import readline from "readline-sync"
 import {getRideele} from "../services/serviceriddle.js"
+import { currUser } from "../maneger/player-meneger.js";
+import{updateTime} from "../services/servicePlayer.js"
 
 export async function play(){
     const allRiddel = await getRideele()
@@ -14,14 +16,25 @@ export async function play(){
         }
         const riddle1 = new riddle(allRiddel[i])
         person1.recordTime(() => riddle1.ask())
-
     }
-    // arrRiddle.forEach(element => {
-    //     const riddle1 = new riddle(element)
-    //     person1.recordTime(() => riddle1.ask())
+    console.log('you average time per riddle is:',person1.average());
+    const newTimeUser = person1.totalTime()
+    console.log('you time for all riddles is:',newTimeUser);
+    const user = currUser    
+    const timeUser = user.bestTime
+    const newTime = eqwalTime(newTimeUser,timeUser)        
+    const update = await updateTime(newTime)
+    console.log('update',update);
+}
 
-    // });
-    person1.showStat()
+
+
+
+export function eqwalTime(UserTime,UserTimeDB){
+    if(UserTime > UserTimeDB ){
+        return UserTime
+    }
+    return UserTimeDB
 }
 
 

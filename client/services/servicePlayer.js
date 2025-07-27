@@ -1,6 +1,9 @@
 // import {addnew} from "./addPlayer.js";
 // import {user} from "./addPlayer.js";
 
+import { currUser } from "../maneger/player-meneger.js";
+
+
 export let token = null
 
 export async function addNewplayer2(newUser) {
@@ -10,9 +13,10 @@ export async function addNewplayer2(newUser) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(newUser)
         })
-        const User = await player.json();
+        const User = await player.json();        
         if (User.msg) {
             console.log(User.msg);
+            return User.msg
         }
         else if (User.error) {
             console.log(User.error);
@@ -31,8 +35,11 @@ export async function login(user) {
             body: JSON.stringify(user)
         })
         const currUser = await player.json();
-        if (currUser.err) {
+        // console.log('couuurr', currUser);
+
+        if (!currUser) {
             console.log(currUser.err);
+
         }
         else if (currUser.success) {
             console.log("Login success");
@@ -50,3 +57,22 @@ export async function login(user) {
     }
 }
 
+export async function updateTime(newTime) {
+    try {
+        setTimeout(async() => {
+            const update = await fetch("http://localhost:3000/player/updateTime", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
+                },
+                body: JSON.stringify({ newTime, currUser })
+            })
+            const data = await update.json()
+            console.log('data', data)
+        }, 1000);
+    }
+    catch (error) {
+        console.error(error)
+    }
+}

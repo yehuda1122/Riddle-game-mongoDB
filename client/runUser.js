@@ -10,10 +10,10 @@ export async function runUser() {
 
     switch (start) {
         case "1":
-            play()
+           await play()
             break;
         case "2":
-            addRidlle()
+            await addRidlle()
             break;
     }
 }
